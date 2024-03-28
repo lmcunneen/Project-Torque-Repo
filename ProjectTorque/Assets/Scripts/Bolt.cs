@@ -22,8 +22,6 @@ public class Bolt : MonoBehaviour
     {
         puzzleBlock.SetBoltIsHeld(false, null);
 
-        transform.parent = puzzleBlock.transform;
-
         Debug.Log(gameObject.name + " is not held!");
     }
 
