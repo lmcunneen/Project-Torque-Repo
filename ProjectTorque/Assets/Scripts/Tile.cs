@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private SpriteRenderer spriteRenderer;
+    private Color baseColor;
+
+    private bool isActive = false;
+    
     void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        baseColor = spriteRenderer.color;
+    }
+
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.GetComponent<Bolt>() != null)
+        {
+            spriteRenderer.color = Color.cyan;
+
+            isActive = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (isActive)
+        {
+            spriteRenderer.color = baseColor;
+
+            isActive = false;
+        }
     }
 }
