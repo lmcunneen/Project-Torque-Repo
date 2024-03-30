@@ -22,11 +22,15 @@ public class Tile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Bolt>() != null)
+        var triggeredBolt = collision.GetComponent<Bolt>();
+
+        if (triggeredBolt != null)
         {
             spriteRenderer.color = Color.cyan;
 
             isActive = true;
+
+            triggeredBolt.SetValidHoveredTile(this);
         }
     }
 
@@ -37,6 +41,8 @@ public class Tile : MonoBehaviour
             spriteRenderer.color = baseColor;
 
             isActive = false;
+
+            collision.GetComponent<Bolt>().SetValidHoveredTile(null);
         }
     }
 }
