@@ -91,10 +91,25 @@ public class PuzzleBlock : MonoBehaviour
         return lookVector;
     }
 
+    public Tile ReturnOtherBoltValidTile(Bolt givenBolt)
+    {
+        if (givenBolt == northBolt)
+            return southBolt.GetValidHoveredTile();
+
+        else if (givenBolt == southBolt)
+            return northBolt.GetValidHoveredTile();
+
+        Debug.Log("Invalid Input for ReturnOtherBoltValidTile!");
+        return null;
+    }
+    
     public void SetBoltValidTiles()
     {
         northValidTile = northBolt.GetValidHoveredTile();
         southValidTile = southBolt.GetValidHoveredTile();
+
+        if (northValidTile == null ||  southValidTile == null) { return; }
+
         ShiftPuzzleBlock();
     }
 

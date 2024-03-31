@@ -15,6 +15,12 @@ public class Bolt : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if (puzzleBlock.ReturnOtherBoltValidTile(this) == null)
+        {
+            Debug.Log("Can't move this bolt!");
+            return;
+        }
+        
         puzzleBlock.SetBoltIsHeld(true, this);
 
         Debug.Log(gameObject.name + " is held!");
