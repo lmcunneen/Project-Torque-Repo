@@ -42,7 +42,12 @@ public class Tile : MonoBehaviour
 
             isActive = false;
 
-            collision.GetComponent<Bolt>().SetValidHoveredTile(null);
+            var exitedBolt = collision.GetComponent<Bolt>();
+
+            if (exitedBolt.GetValidHoveredTile() == this)
+            {
+                collision.GetComponent<Bolt>().SetValidHoveredTile(null);
+            }
         }
     }
 }

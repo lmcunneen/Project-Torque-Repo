@@ -9,6 +9,9 @@ public class PuzzleBlock : MonoBehaviour
     [SerializeField] private Bolt northBolt;
     [SerializeField] private Bolt southBolt;
 
+    private Tile northValidTile;
+    private Tile southValidTile;
+
     private bool boltIsHeld = false;
     private Camera mainCam;
 
@@ -86,5 +89,25 @@ public class PuzzleBlock : MonoBehaviour
         }
 
         return lookVector;
+    }
+
+    public void SetBoltValidTiles()
+    {
+        northValidTile = northBolt.GetValidHoveredTile();
+        southValidTile = southBolt.GetValidHoveredTile();
+        ShiftPuzzleBlock();
+    }
+
+    private void ShiftPuzzleBlock()
+    {
+        Vector2 shiftPosition = Vector2.Lerp(northValidTile.transform.position, southValidTile.transform.position, 0.5f);
+        transform.position = shiftPosition;
+
+        float rotation = Mathf.Round(transform.rotation.eulerAngles.z / 22.5f) * 22.5f;
+
+        Debug.Log(transform.rotation.eulerAngles.z);
+        Debug.Log(rotation);
+       
+        transform.rotation = Quaternion.Euler(0f, 0f, rotation);
     }
 }

@@ -22,13 +22,12 @@ public class Bolt : MonoBehaviour
 
     public void OnMouseUp()
     {
+        puzzleBlock.SetBoltIsHeld(false, null);
+
         if (validHoveredTile != null)
         {
-            transform.position = validHoveredTile.transform.position;
-            validHoveredTile = null;
+            puzzleBlock.SetBoltValidTiles();
         }
-
-        puzzleBlock.SetBoltIsHeld(false, null);
 
         Debug.Log(gameObject.name + " is not held!");
     }
@@ -38,6 +37,11 @@ public class Bolt : MonoBehaviour
         transform.parent = givenTransform;
     }
 
+    public Tile GetValidHoveredTile()
+    {
+        return validHoveredTile;
+    }   
+    
     public void SetValidHoveredTile(Tile givenTile)
     {
         validHoveredTile = givenTile;
