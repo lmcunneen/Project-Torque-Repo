@@ -6,11 +6,26 @@ public class Bolt : MonoBehaviour
 {
     private PuzzleBlock puzzleBlock;
 
+    private SpriteRenderer blockSprite;
+    private SpriteRenderer boltSprite;
+
+    private GridManager gridManager;
+
     private Tile validHoveredTile;
 
     void Start()
     {
         puzzleBlock = transform.parent.GetComponent<PuzzleBlock>();
+        blockSprite = puzzleBlock.GetComponent<SpriteRenderer>();
+
+        boltSprite = GetComponent<SpriteRenderer>();
+
+        gridManager = FindObjectOfType<GridManager>();
+    }
+
+    private void Update()
+    {
+        boltSprite.sortingOrder = blockSprite.sortingOrder * 4;
     }
 
     public void OnMouseDown()
@@ -22,6 +37,7 @@ public class Bolt : MonoBehaviour
         }
         
         puzzleBlock.SetBoltIsHeld(true, this);
+        gridManager.MovePuzzleBlockToFront(puzzleBlock);
 
         Debug.Log(gameObject.name + " is held!");
     }
