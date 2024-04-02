@@ -15,12 +15,19 @@ public class PuzzleBlock : MonoBehaviour
     private bool boltIsHeld = false;
     private Camera mainCam;
 
-    public GameObject debug;
     private Bolt rotatingBolt;
+
+    [Header("Lerp Parameters")]
+    [SerializeField] private float lerpRate = 20;
+    private Vector2 targetShiftPosition;
+    private Quaternion targetShiftRotation;
 
     void Start()
     {
         mainCam = Camera.main;
+
+        targetShiftPosition = transform.position;
+        targetShiftRotation = transform.rotation;
     }
 
     void Update()
@@ -28,6 +35,11 @@ public class PuzzleBlock : MonoBehaviour
         if (boltIsHeld)
         {
             RotateBlock();
+        }
+
+        else
+        {
+            LerpToTargetShift();
         }
     }
 
@@ -75,8 +87,6 @@ public class PuzzleBlock : MonoBehaviour
         Transform parent = transform.parent;
 
         parent.rotation = Quaternion.LookRotation(Vector3.forward, ReturnLookVector(mousePos, parent));
-
-        debug.transform.position = mousePos;
     }
 
     private Vector2 ReturnLookVector(Vector3 mousePos, Transform parent)
@@ -116,13 +126,20 @@ public class PuzzleBlock : MonoBehaviour
     private void ShiftPuzzleBlock()
     {
         Vector2 shiftPosition = Vector2.Lerp(northValidTile.transform.position, southValidTile.transform.position, 0.5f);
-        transform.position = shiftPosition;
 
         float rotation = Mathf.Round(transform.rotation.eulerAngles.z / 22.5f) * 22.5f;
 
         Debug.Log(transform.rotation.eulerAngles.z);
         Debug.Log(rotation);
-       
-        transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+
+        targetShiftPosition = shiftPosition;
+        targetShiftRotation = Quaternion.Euler(0f, 0f, rotation);
+    }
+    
+    private void LerpToTargetShift()
+    {
+        transform.position = Vector2.Lerp(transform.position, targetShiftPosition, lerpRate * Time.deltaTime);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetShiftRotation, lerpRate * Time.deltaTime);
     }
 }
