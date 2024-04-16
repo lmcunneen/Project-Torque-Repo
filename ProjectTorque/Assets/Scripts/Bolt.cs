@@ -25,7 +25,7 @@ public class Bolt : MonoBehaviour
 
     private void Update()
     {
-        boltSprite.sortingOrder = blockSprite.sortingOrder * 4;
+        boltSprite.sortingOrder = blockSprite.sortingOrder + 1;
     }
 
     public void OnMouseDown()
