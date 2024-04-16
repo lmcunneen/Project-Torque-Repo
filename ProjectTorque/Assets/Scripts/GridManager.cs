@@ -6,6 +6,8 @@ public class GridManager : MonoBehaviour
 {
     private PuzzleBlock[] puzzleBlockLayers;
 
+    private List<Tile> allOverlappedTiles = new();
+
     private int layerOrderShift = 10;
     
     void Start()
@@ -13,11 +15,6 @@ public class GridManager : MonoBehaviour
         puzzleBlockLayers = FindObjectsOfType<PuzzleBlock>();
 
         LayerPuzzleBlocks();
-    }
-
-    void Update()
-    {
-        
     }
 
     public void MovePuzzleBlockToFront(PuzzleBlock givenBlock)
@@ -49,6 +46,22 @@ public class GridManager : MonoBehaviour
         for (int i = 0; i < puzzleBlockLayers.Length; i++)
         {
             puzzleBlockLayers[i].GetComponent<SpriteRenderer>().sortingOrder = layerOrderShift - i;
+        }
+    }
+
+    public void UpdateAllOverlappedTiles(List<Tile> oldTiles, List<Tile> newTiles)
+    {
+        foreach(var tile in newTiles)
+        {
+            allOverlappedTiles.Add(tile);
+        }
+
+        if (oldTiles.Count >= 1)
+        {
+            foreach(var tile in oldTiles)
+            {
+                allOverlappedTiles.Remove(tile);
+            }
         }
     }
 }
