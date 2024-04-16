@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -63,13 +64,16 @@ public class GridManager : MonoBehaviour
                 allOverlappedTiles.Remove(tile);
             }
         }
-
-        Debug.Log("All have been updated now :)");
     }
 
-    public bool CheckIfTileIsOverlapped(Tile givenTile)
+    public bool CheckIfTileIsOverlapped(Tile givenTile, List<Tile> overlapsToIgnore)
     {
-        foreach(var tile in allOverlappedTiles)
+        List<Tile> tilesToCheck = allOverlappedTiles.Except(overlapsToIgnore).ToList();
+
+        PrintList("Overlaps", overlapsToIgnore);
+        PrintList("Tiles To Check", tilesToCheck);
+        
+        foreach(var tile in tilesToCheck)
         {
             if (tile.GetInstanceID() == givenTile.GetInstanceID())
             {
@@ -78,5 +82,17 @@ public class GridManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void PrintList(string name, List<Tile> list)
+    {
+        string debugMessage = name + ":\n";
+        
+        foreach (var thing in list)
+        {
+            debugMessage += thing.ToString() + '\n';
+        }
+
+        Debug.Log(debugMessage);
     }
 }

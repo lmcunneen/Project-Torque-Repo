@@ -46,7 +46,7 @@ public class Bolt : MonoBehaviour
     {
         if (validHoveredTile != null)
         {
-            if (gridManager.CheckIfTileIsOverlapped(validHoveredTile))
+            if (gridManager.CheckIfTileIsOverlapped(validHoveredTile, puzzleBlock.overlapChecker.ReturnCurrentTiles()))
             {
                 validHoveredTile = null;
             }

@@ -17,12 +17,12 @@ public class PuzzleBlock : MonoBehaviour
 
     private Bolt rotatingBolt;
 
-    private OverlapTileChecker overlapChecker;
-
     [Header("Lerp Parameters")]
     [SerializeField] private float lerpRate = 20;
     private Vector2 targetShiftPosition;
     private Quaternion targetShiftRotation;
+
+    [HideInInspector] public OverlapTileChecker overlapChecker;
 
     void Start()
     {

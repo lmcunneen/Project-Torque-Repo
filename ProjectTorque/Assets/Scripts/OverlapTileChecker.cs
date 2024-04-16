@@ -57,4 +57,9 @@ public class OverlapTileChecker : MonoBehaviour
 
         AssignPreviousOverlapTiles();
     }
+
+    public List<Tile> ReturnCurrentTiles()
+    {
+        return currentOverlappedTiles;
+    }
 }
