@@ -16,7 +16,7 @@ public class OverlapTileChecker : MonoBehaviour
         StartCoroutine(DelayAssignMethod());
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) //Add tile to list if entered
     {
         if (collision.TryGetComponent<Tile>(out var tile))
         {
@@ -24,7 +24,7 @@ public class OverlapTileChecker : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision) //Remove tile from list if exited AND in the list
     {
         if (!collision.TryGetComponent<Tile>(out var tile)) { return; }
 
@@ -34,11 +34,11 @@ public class OverlapTileChecker : MonoBehaviour
         }
     }
 
-    private IEnumerator DelayAssignMethod()
+    private IEnumerator DelayAssignMethod() //Wait for the trigger methods to finish before returning the lists
     {
         yield return new WaitForEndOfFrame();
 
-        ReturnOverlapTilesToGridManager(false);
+        ReturnOverlapTilesToGridManager();
     }
 
     private void AssignPreviousOverlapTiles()
@@ -51,11 +51,10 @@ public class OverlapTileChecker : MonoBehaviour
         }
     }
 
-    public void ReturnOverlapTilesToGridManager(bool resetPrevious)
+    public void ReturnOverlapTilesToGridManager()
     {
         gridManager.UpdateAllOverlappedTiles(previousOverlapTiles, currentOverlappedTiles);
 
-        if (resetPrevious) 
-            AssignPreviousOverlapTiles();
+        AssignPreviousOverlapTiles();
     }
 }

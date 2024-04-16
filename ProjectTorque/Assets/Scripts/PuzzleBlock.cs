@@ -17,6 +17,8 @@ public class PuzzleBlock : MonoBehaviour
 
     private Bolt rotatingBolt;
 
+    private OverlapTileChecker overlapChecker;
+
     [Header("Lerp Parameters")]
     [SerializeField] private float lerpRate = 20;
     private Vector2 targetShiftPosition;
@@ -28,6 +30,8 @@ public class PuzzleBlock : MonoBehaviour
 
         targetShiftPosition = transform.position;
         targetShiftRotation = transform.rotation;
+
+        overlapChecker = GetComponent<OverlapTileChecker>();
     }
 
     void Update()
@@ -60,6 +64,11 @@ public class PuzzleBlock : MonoBehaviour
         }
 
         boltIsHeld = value;
+    }
+
+    public void RunOverlapListMethod()
+    {
+        overlapChecker.ReturnOverlapTilesToGridManager();
     }
 
     private Bolt GetParentBolt(Bolt activeBolt)
