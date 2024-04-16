@@ -63,5 +63,20 @@ public class GridManager : MonoBehaviour
                 allOverlappedTiles.Remove(tile);
             }
         }
+
+        Debug.Log("All have been updated now :)");
+    }
+
+    public bool CheckIfTileIsOverlapped(Tile givenTile)
+    {
+        foreach(var tile in allOverlappedTiles)
+        {
+            if (tile.GetInstanceID() == givenTile.GetInstanceID())
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

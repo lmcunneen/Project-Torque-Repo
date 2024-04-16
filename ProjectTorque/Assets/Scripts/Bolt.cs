@@ -44,13 +44,18 @@ public class Bolt : MonoBehaviour
 
     public void OnMouseUp()
     {
-        puzzleBlock.SetBoltIsHeld(false, null);
-        puzzleBlock.RunOverlapListMethod();
-
         if (validHoveredTile != null)
         {
+            if (gridManager.CheckIfTileIsOverlapped(validHoveredTile))
+            {
+                validHoveredTile = null;
+            }
+            
             puzzleBlock.SetBoltValidTiles();
         }
+
+        puzzleBlock.RunOverlapListMethod();
+        puzzleBlock.SetBoltIsHeld(false, null);
 
         Debug.Log(gameObject.name + " is not held!");
     }
