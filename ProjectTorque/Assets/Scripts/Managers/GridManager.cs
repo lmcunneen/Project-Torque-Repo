@@ -70,8 +70,8 @@ public class GridManager : MonoBehaviour
     {
         List<Tile> tilesToCheck = allOverlappedTiles.Except(overlapsToIgnore).ToList();
 
-        PrintList("Overlaps", overlapsToIgnore);
-        PrintList("Tiles To Check", tilesToCheck);
+        //PrintList("Overlaps", overlapsToIgnore);
+        //PrintList("Tiles To Check", tilesToCheck);
         
         foreach(var tile in tilesToCheck)
         {

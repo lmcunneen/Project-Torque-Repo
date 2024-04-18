@@ -44,11 +44,11 @@ public class PuzzleManager : MonoBehaviour
 
             bool tileAlignment = condition.winTiles.All(givenBlock.GetComponent<OverlapTileChecker>().ReturnCurrentTiles().Contains);
 
-            Debug.Log(givenBlock.ToString() + '\n' + tileAlignment);
-
             if (tileAlignment)
             {
                 condition.hasMetCondition = true;
+
+                CheckForLevelComplete();
             }
 
             else
@@ -56,5 +56,15 @@ public class PuzzleManager : MonoBehaviour
                 condition.hasMetCondition = false;
             }
         }
+    }
+
+    private void CheckForLevelComplete()
+    {
+        foreach(var condition in allBlockWinConditions)
+        {
+            if(!condition.hasMetCondition) { return; }
+        }
+
+        Debug.Log("Level Complete!");
     }
 }
