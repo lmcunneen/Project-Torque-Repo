@@ -10,6 +10,7 @@ public class Bolt : MonoBehaviour
     private SpriteRenderer boltSprite;
 
     private GridManager gridManager;
+    private PuzzleManager puzzleManager;
 
     private Tile validHoveredTile;
 
@@ -23,6 +24,7 @@ public class Bolt : MonoBehaviour
         boltSprite = GetComponent<SpriteRenderer>();
 
         gridManager = FindObjectOfType<GridManager>();
+        puzzleManager = FindObjectOfType<PuzzleManager>();
     }
 
     private void Update()
@@ -60,6 +62,8 @@ public class Bolt : MonoBehaviour
 
         puzzleBlock.RunOverlapListMethod();
         puzzleBlock.SetBoltIsHeld(false, null);
+
+        puzzleManager.CheckForWinCondition(puzzleBlock);
 
         Debug.Log(gameObject.name + " is not held!");
     }
