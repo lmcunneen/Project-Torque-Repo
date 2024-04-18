@@ -1588,6 +1588,7 @@ MonoBehaviour:
   northBolt: {fileID: 1973062498}
   southBolt: {fileID: 277632357}
   lerpRate: 20
+  overlapChecker: {fileID: 0}
 --- !u!212 &563711761
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1693,7 +1694,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.52, y: 0.83}
   m_EdgeRadius: 0
 --- !u!1 &669263011
 GameObject:
@@ -3827,6 +3828,7 @@ MonoBehaviour:
   northBolt: {fileID: 1082004052}
   southBolt: {fileID: 809361881}
   lerpRate: 20
+  overlapChecker: {fileID: 0}
 --- !u!212 &1706445343
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3920,7 +3922,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.52, y: 0.83}
   m_EdgeRadius: 0
 --- !u!114 &1706445346
 MonoBehaviour:
@@ -4671,6 +4673,7 @@ MonoBehaviour:
   northBolt: {fileID: 525070361}
   southBolt: {fileID: 16390008}
   lerpRate: 20
+  overlapChecker: {fileID: 0}
 --- !u!212 &1937888541
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4776,7 +4779,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.52, y: 0.83}
   m_EdgeRadius: 0
 --- !u!1 &1970110678
 GameObject:
@@ -5305,6 +5308,7 @@ MonoBehaviour:
   northBolt: {fileID: 1729435726}
   southBolt: {fileID: 356538613}
   lerpRate: 20
+  overlapChecker: {fileID: 0}
 --- !u!212 &2026656023
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5410,7 +5414,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.52, y: 0.83}
   m_EdgeRadius: 0
 --- !u!1 &2125946843
 GameObject:
