@@ -13,6 +13,8 @@ public class Bolt : MonoBehaviour
 
     private Tile validHoveredTile;
 
+    private List<Tile> currentOverlapTiles = new();
+
     void Start()
     {
         puzzleBlock = transform.parent.GetComponent<PuzzleBlock>();
@@ -30,6 +32,8 @@ public class Bolt : MonoBehaviour
 
     public void OnMouseDown()
     {
+        SetCurrentOverlapTiles();
+        
         if (puzzleBlock.ReturnOtherBoltValidTile(this) == null)
         {
             Debug.Log("Can't move this bolt!");
@@ -46,7 +50,7 @@ public class Bolt : MonoBehaviour
     {
         if (validHoveredTile != null)
         {
-            if (gridManager.CheckIfTileIsOverlapped(validHoveredTile, puzzleBlock.overlapChecker.ReturnCurrentTiles()))
+            if (gridManager.CheckIfTileIsOverlapped(validHoveredTile, currentOverlapTiles))
             {
                 validHoveredTile = null;
             }
@@ -73,5 +77,15 @@ public class Bolt : MonoBehaviour
     public void SetValidHoveredTile(Tile givenTile)
     {
         validHoveredTile = givenTile;
+    }
+
+    private void SetCurrentOverlapTiles()
+    {
+        currentOverlapTiles.Clear();
+        
+        foreach(var tile in puzzleBlock.overlapChecker.ReturnCurrentTiles())
+        {
+            currentOverlapTiles.Add(tile);
+        }
     }
 }

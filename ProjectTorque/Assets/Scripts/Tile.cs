@@ -42,7 +42,7 @@ public class Tile : MonoBehaviour
 
             isActive = false;
 
-            collision.TryGetComponent<Bolt>(out var exitedBolt);
+            if (!collision.TryGetComponent<Bolt>(out var exitedBolt)) { return; }
 
             if (exitedBolt.GetValidHoveredTile() == this)
             {

@@ -12,6 +12,7 @@ public class PuzzleBlock : MonoBehaviour
     private Tile northValidTile;
     private Tile southValidTile;
 
+    private bool isInteractable = true;
     private bool boltIsHeld = false;
     private Camera mainCam;
 
@@ -36,14 +37,21 @@ public class PuzzleBlock : MonoBehaviour
 
     void Update()
     {
-        if (boltIsHeld)
+        if (boltIsHeld && isInteractable)
         {
             RotateBlock();
         }
 
+        else if (!CheckOnTargetLerp())
+        {
+            isInteractable = false;
+            
+            LerpToTargetShift();
+        }
+
         else
         {
-            LerpToTargetShift();
+            isInteractable = true;
         }
     }
 
@@ -143,6 +151,23 @@ public class PuzzleBlock : MonoBehaviour
 
         targetShiftPosition = shiftPosition;
         targetShiftRotation = Quaternion.Euler(0f, 0f, rotation);
+    }
+    
+    private bool CheckOnTargetLerp()
+    {
+        float positionDifference = Vector2.Distance(transform.position, targetShiftPosition);
+        float rotationDifference = Quaternion.Angle(transform.rotation, targetShiftRotation);
+
+        if (positionDifference > 0.01f || rotationDifference > 0.01f)
+        {
+            return false;
+        }
+
+        //Sets them to the exact target positions for precision
+        transform.position = targetShiftPosition;
+        transform.rotation = targetShiftRotation;
+
+        return true;
     }
     
     private void LerpToTargetShift()
