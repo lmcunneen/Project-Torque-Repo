@@ -15,10 +15,13 @@ public class PuzzleBlockConditions
 public class PuzzleManager : MonoBehaviour
 {
     [SerializeField] private List<PuzzleBlockConditions> allBlockWinConditions = new();
+    private GameObject winScreen;
 
     void Start()
     {
-        
+        winScreen = GameObject.Find("WinScreen");
+
+        winScreen.SetActive(false);
     }
 
     void Update()
@@ -66,5 +69,7 @@ public class PuzzleManager : MonoBehaviour
         }
 
         Debug.Log("Level Complete!");
+
+        winScreen.SetActive(true);
     }
 }
