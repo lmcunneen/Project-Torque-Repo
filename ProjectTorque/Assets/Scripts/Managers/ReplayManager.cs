@@ -16,7 +16,7 @@ public class ReplayManager : MonoBehaviour
     [SerializeField] private List<PuzzleBlockState> startingPositions = new();
 
     [SerializeField] private List<PuzzleBlockState> movedPositions = new();
-    private int movedListIndex = -1;
+    [SerializeField] private int movedListIndex = -1;
 
     public void InitialiseStartingPosition(PuzzleBlock givenBlock, Vector3 givenPosition, Quaternion givenRotation, Vector3 targetPosition, Quaternion targetRotation)
     {
@@ -39,11 +39,11 @@ public class ReplayManager : MonoBehaviour
     public void AddNewPuzzleBlockState(PuzzleBlock givenBlock, Vector3 givenPosition, Quaternion givenRotation, Vector3 targetPosition, Quaternion targetRotation)
     {
         var newState = GeneratePuzzleBlockState(givenBlock, givenPosition, givenRotation);
-
-        if (movedListIndex > movedPositions.Count)
+        
+        if (movedListIndex < movedPositions.Count - 1)
         {
-            Debug.Log("Clearing List from front onwards!");
-            movedPositions.RemoveRange(movedListIndex, movedPositions.Count - movedListIndex);
+            //Debug.Log("Clearing List from front onwards!");
+            movedPositions.RemoveRange(movedListIndex + 1, movedPositions.Count - movedListIndex - 1);
         }
 
         movedPositions.Add(newState);
