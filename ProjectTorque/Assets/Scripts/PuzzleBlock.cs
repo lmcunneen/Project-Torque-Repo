@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -24,6 +26,7 @@ public class PuzzleBlock : MonoBehaviour
     private Quaternion targetShiftRotation;
 
     [HideInInspector] public OverlapTileChecker overlapChecker;
+    private ReplayManager replayManager;
 
     void Start()
     {
@@ -33,6 +36,9 @@ public class PuzzleBlock : MonoBehaviour
         targetShiftRotation = transform.rotation;
 
         overlapChecker = GetComponent<OverlapTileChecker>();
+        replayManager = FindObjectOfType<ReplayManager>();
+
+        replayManager.InitialiseStartingPosition(this, transform.position, transform.rotation, targetShiftPosition, targetShiftRotation);
     }
 
     void Update()
@@ -151,6 +157,8 @@ public class PuzzleBlock : MonoBehaviour
 
         targetShiftPosition = shiftPosition;
         targetShiftRotation = Quaternion.Euler(0f, 0f, rotation);
+
+        replayManager.AddNewPuzzleBlockState(this, targetShiftPosition, targetShiftRotation, targetShiftPosition, targetShiftRotation);
     }
     
     private bool CheckOnTargetLerp()
@@ -175,5 +183,14 @@ public class PuzzleBlock : MonoBehaviour
         transform.position = Vector2.Lerp(transform.position, targetShiftPosition, lerpRate * Time.deltaTime);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetShiftRotation, lerpRate * Time.deltaTime);
+    }
+
+    public void SetCurrentTransformAndTargetTransform(PuzzleBlockState state)
+    {
+        transform.position = state.position;
+        transform.rotation = state.rotation;
+
+        targetShiftPosition = state.position;
+        targetShiftRotation = state.rotation;
     }
 }
